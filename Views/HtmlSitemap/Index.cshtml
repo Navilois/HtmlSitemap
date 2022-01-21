@@ -1,0 +1,34 @@
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<DotNetNuke.Services.Sitemap.SitemapUrl>>
+
+@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Mvc.Helpers
+
+<div id="Items-@Dnn.ModuleContext.ModuleId">
+    @if (Model == null || !Model.Any())
+    {
+        <p>@Dnn.LocalizeString("NoItems")</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="@item.Url">@item.Url</a>
+                    @if (item.AlternateUrls != null && item.AlternateUrls.Count > 0)
+                    {
+                        foreach (var altUrl in item.AlternateUrls)
+                        {
+                            if (item.Url != altUrl.Url)
+                            {
+                                <a href="@altUrl.Url">@altUrl.Language</a>
+                            }
+
+                        }
+                    }
+                </li>
+
+            }
+        </ul>
+    }
+</div> 
